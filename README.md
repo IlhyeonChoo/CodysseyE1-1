@@ -106,6 +106,42 @@ zsh: permission denied: test.md
    2   │ 일반 유저로 수정 시도
    3   │ sudo 명령어 이용해서 수정 시도
 
+
+> ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:31 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:04 ..
+-rwx------ 1 root       root          0 Nov  2 17:31 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+> rm rmTest.md
+rm: remove write-protected regular empty file 'rmTest.md'?
+> ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:31 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:04 ..
+-rwx------ 1 root       root          0 Nov  2 17:31 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+> chmod -R 777 rmTest.md
+chmod: changing permissions of 'rmTest.md': Operation not permitted
+> ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:31 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:04 ..
+-rwxrwxrwx 1 root       root          0 Nov  2 17:31 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+> rm rmTest.md
+rm: cannot remove 'rmTest.md': Permission denied
+> sudo rmTest.md
+[sudo] password for ilhyeonchu:
+sudo: a password is required
+> sudo rm rmTest.md
+[sudo] password for ilhyeonchu:
+> ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:32 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:04 ..
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+
 ```
 
 ### root
@@ -121,6 +157,13 @@ root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# cat 
 수도 권한으로 수정
 root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 777 -R test.md
 root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest#
+
+> sudo su
+[sudo] password for ilhyeonchu:
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# touch rmTest.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 700 -R rmTest.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 777 -R rmTest.md
+
 ```
 
 ### 이미지
