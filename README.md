@@ -164,6 +164,34 @@ root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# touc
 root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 700 -R rmTest.md
 root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 777 -R rmTest.md
 
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:32 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:36 ..
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# touch rmTest.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:37 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:36 ..
+-rw-r--r-- 1 root       root          0 Nov  2 17:37 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 700 -R rmTest.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:37 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:36 ..
+-rwx------ 1 root       root          0 Nov  2 17:37 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 777 -R rmTest.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# ls -al
+total 12
+drwxr-xr-x 2 root       root       4096 Nov  2 17:37 .
+drwxrwxr-x 5 ilhyeonchu ilhyeonchu 4096 Nov  2 17:36 ..
+-rwxrwxrwx 1 root       root          0 Nov  2 17:37 rmTest.md
+-rwxrwxrwx 1 root       root        100 Nov  2 16:50 test.md
+
+
 ```
 
 ### 이미지
