@@ -453,6 +453,32 @@ remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
 branch.main.remote=origin
 branch.main.merge=refs/heads/main
 
+> git log
+commit a14dfba57c8762685343b9cfe4ee18317984d4a3 (HEAD -> main, origin/main)
+Author: ilhyeonchu <ilhyeonchu@gmail.com>
+Date:   Mon Nov 2 17:38:35 2026 +0900
+
+    chmod 후 변경된 권한 출력 명령어 추가
+
+commit a973b7f0e39faedc21c970bc33f386771026e8c1
+Author: ilhyeonchu <ilhyeonchu@gmail.com>
+Date:   Mon Nov 2 17:36:09 2026 +0900
+
+    rmTest image 추가
+
+commit 67a476e699e13ae95f264640dc4190106efc4e17
+Author: ilhyeonchu <ilhyeonchu@gmail.com>
+Date:   Mon Nov 2 17:35:08 2026 +0900
+
+    rm 추가
+
+commit aad0891baac2b09fe2d86082111d40fc07d3c06b
+Author: ilhyeonchu <ilhyeonchu@gmail.com>
+Date:   Mon Nov 2 17:04:29 2026 +0900
+
+    git 연동 이미지 추가
+
+
 ```
 
 ### 깃헙과 코디세이 토큰으로 연동 이미지
