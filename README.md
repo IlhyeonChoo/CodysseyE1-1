@@ -126,3 +126,36 @@ root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest#
 ### 이미지
 
 ![chmod and root test](./images/chmod_test.png)
+
+## 5) Docker 기본 운영 명령 수행
+
+## 8) Git 설정 및 연동
+
+```zsh
+> git config --list
+user.name=ilhyeonchu
+user.mail=ilhyeonchu@gmail.com
+user.email=ilhyeonchu@gmail.com
+credential.helper=store
+include.path=~/dotfiles/git/.gitconfig
+core.pager=sh -c 'command -v delta >/dev/null 2>&1 && exec delta "$@" || exec less -R "$@"' --
+interactive.difffilter=sh -c 'command -v delta >/dev/null 2>&1 && exec delta --color-only || exec cat' --
+delta.navigate=true
+delta.line-numbers=true
+delta.side-by-side=false
+diff.colormoved=default
+merge.conflictstyle=zdiff3
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=git@github.com:IlhyeonChoo/CodysseyE1-1.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.main.remote=origin
+branch.main.merge=refs/heads/main
+
+```
+
+### 깃헙과 코디세이 토큰으로 연동 이미지
+
+![git](./images/git.png)
