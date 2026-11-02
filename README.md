@@ -66,3 +66,59 @@ LuaJIT 2.1.1741730670
 Run "nvim -V1 -v" for more info
 
 ```
+
+## 4) 권한 명령어 실습
+
+### 일반 유저
+
+```Zsh
+> ls -al
+total 20
+drwxrwxr-x  4 ilhyeonchu ilhyeonchu 4096 Nov  2 16:45 .
+drwxrwxr-x 23 ilhyeonchu ilhyeonchu 4096 Oct 30 17:54 ..
+drwxrwxr-x  8 ilhyeonchu ilhyeonchu 4096 Nov  2 16:42 .git
+-rw-rw-r--  1 ilhyeonchu ilhyeonchu 1665 Nov  2 16:32 README.md
+drwxr-xr-x  2 root       root       4096 Nov  2 16:47 sudoTest
+> cd sudoTest
+> ls -al
+total 8
+drwxr-xr-x 2 root       root       4096 Nov  2 16:47 .
+drwxrwxr-x 4 ilhyeonchu ilhyeonchu 4096 Nov  2 16:45 ..
+-rw-r--r-- 1 root       root          0 Nov  2 16:47 test.md
+> cat test.md
+───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: test.md
+───────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ 수도 권한으로 수정
+───────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────
+> echo "일반 유저로 수정 시도" >> test.md
+zsh: permission denied: test.md
+> sudo echo "sudo 명령어 이용해서 수정 시도" >> test.md
+zsh: permission denied: test.md
+> echo "일반 유저로 수정 시도" >> test.md
+> sudo echo "sudo 명령어 이용해서 수정 시도" >> test.md
+[sudo] password for ilhyeonchu:
+> cat test.md
+───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: test.md
+───────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ 수도 권한으로 수정
+   2   │ 일반 유저로 수정 시도
+   3   │ sudo 명령어 이용해서 수정 시도
+
+```
+
+### root
+
+```zsh
+> sudo su
+[sudo] password for ilhyeonchu:
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1# mkdir sudoTest
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1# cd sudoTest
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# touch test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# echo "수도 권한으로  수정" >> test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# cat test.md
+수도 권한으로 수정
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmod 777 -R test.md
+root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest#
+```
