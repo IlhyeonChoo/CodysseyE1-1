@@ -169,6 +169,7 @@ root@ilhyeonserver:/home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/sudoTest# chmo
 ### 이미지
 
 ![chmod and root test](./images/chmod_test.png)
+![rmTest](./images/rmTest.png)
 
 ## 5) Docker 기본 운영 명령 수행
 
