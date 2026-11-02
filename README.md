@@ -26,7 +26,7 @@ ssh를 이용해 접속
 - [x] hello-world 실행
 - [x] 포트 매핑 접속 (local, tunneling)
 - [x] 바운드 마운트 반영
-- [x] Git 설정 + VSCode GitHub 연동
+- [x] Git 설정
 
 ## 3) 수행 로그
 
