@@ -386,7 +386,6 @@ COPY ./test-nginx/html/ /usr/share/nginx/html/
 
 ```zsh
 > docker build -t codyssey-e1-1-nginx .
-> docker build -t codyssey-e1-1-nginx .
 [+] Building 0.1s (7/7) FINISHED                                                          docker:default
  => [internal] load build definition from Dockerfile                                                0.0s
  => => transferring dockerfile: 189B                                                                0.0s
@@ -415,8 +414,71 @@ f4f9ae406814   postgres:16-alpine           "docker-entrypoint.s…"   5 weeks a
 a3bdc50ad02a   ilhyeon-blog:local           "tini -- ./bin/start"    2 months ago    Up 5 days (healthy)                                                                     blog-blog-1
 fc90c5e34d22   caddy:2.11.4-alpine          "caddy run --config …"   2 months ago    Up 5 days (healthy)   127.0.0.1:80->80/tcp, 127.0.0.1:443->443/tcp, 443/udp, 2019/tcp   blog-caddy-1
 1dd9912d1fe1   redis:7-alpine               "docker-entrypoint.s…"   3 months ago    Up 5 days (healthy)   127.0.0.1:6379->6379/tcp
-
 ```
+
+### 권한 문제 발생 및 해결
+
+위의 명령어로 실행 시 마운트 디렉토리 권한 문제로 ./test-nginx/html 내부의 파일 수정 불가
+아래의 명령어로 교체 후 해결
+
+```zsh
+> docker run -d --name codyssey-e1-1-nginx -p 8090:80 -v /home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/test-nginx/html:/usr/share/nginx/html:rw codyssey-e1-1-nginx:latest
+6ab971c2704ac5329c9baf7c3a55926f5aae54b315e50c44043326650a3ade0b
+```
+
+### 테스트 파일 생성 후 컨테이너 재생성
+
+```sh
+> docker exec -it codyssey-e1-1-nginx sh
+/ # ls
+bin                   home                  proc                  sys
+dev                   lib                   root                  tmp
+docker-entrypoint.d   media                 run                   usr
+docker-entrypoint.sh  mnt                   sbin                  var
+etc                   opt                   srv
+/ # cd usr/share/nginx/html/
+/usr/share/nginx/html # ls
+index.html
+/usr/share/nginx/html # touch test.html
+/usr/share/nginx/html # vim test.html
+sh: vim: not found
+/usr/share/nginx/html # nano test.html
+sh: nano: not found
+/usr/share/nginx/html # sudo apt install vim
+sh: sudo: not found
+/usr/share/nginx/html # apt install vim
+sh: apt: not found
+/usr/share/nginx/html # apt-get update
+sh: apt-get: not found
+/usr/share/nginx/html # exit
+> docker exec -it codyssey-e1-1-nginx bash
+OCI runtime exec failed: exec failed: unable to start container process: exec: "bash": executable file not found in $PATH
+> docker exec -it codyssey-e1-1-nginx sh
+/ # cd usr/share/nginx/html/
+/usr/share/nginx/html # ls
+index.html  test.html
+/usr/share/nginx/html # touch test.txt
+/usr/share/nginx/html # echo "바운드 마운트로 컨테이너 삭제시에도 제대로 데이터가 남아있는지" >> tes
+t.txt
+/usr/share/nginx/html # cat test.txt
+바운드 마운트로 컨테이너 삭제시에도 제대로 데이터가 남아있는지
+/usr/share/nginx/html # exit
+> docker stop codyssey-e1-1-nginx
+codyssey-e1-1-nginx
+> docker rm codyssey-e1-1-nginx
+codyssey-e1-1-nginx
+> docker run -d --name codyssey-e1-1-nginx -p 8090:80 -v /home/ilhyeonchu/Documents/GitHub/CodysseyE1-1/test-nginx/html:/usr/share/nginx/html:rw codyssey-e1-1-nginx:latest
+b21330dbea4c67a780dbf08592ff91b4f04cbac494955b002781097243f32f09
+> docker exec -it codyssey-e1-1-nginx sh
+/ # cd usr/share/nginx/html/
+/usr/share/nginx/html # ls
+index.html  test.html   test.txt
+/usr/share/nginx/html #
+```
+
+#### 이미지
+
+![재생성](./images/재생성.png)
 
 ## 9) 브라우저 접속
 
