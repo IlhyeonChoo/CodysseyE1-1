@@ -506,6 +506,16 @@ index.html  test.html   test.txt
 
 ## 10) Git 설정 및 연동
 
+### Git ssh 키 연결 확인
+
+```zsh
+> ssh -T git@github.com
+Hi IlhyeonChoo! You've successfully authenticated, but GitHub does not provide shell access.
+
+```
+
+### Git 설정 및 연동 확인
+
 ```zsh
 > git config --list
 user.name=ilhyeonchu
@@ -560,3 +570,84 @@ Date:   Mon Nov 2 17:04:29 2026 +0900
 ### 깃헙과 코디세이 토큰으로 연동 이미지
 
 ![git](./images/git.png)
+
+## 11) Docker Compose
+
+### 초기 docker-compose.yml
+
+```docker-compose
+services:
+  codyssey-e1-1-1:
+    image: codyssey-e1-1-nginx:latest
+    ports: 
+      - "8090:80"
+    volumes:
+      - ./test-nginx/html:/usr/share/nginx/html
+
+```
+
+### 초기 설정 파일을 이용한 생성 및 결과 이미지
+
+```zsh
+> docker compose up -d
+[+] up 1/1
+ ✔ Container codysseye1-1-codyssey-e1-1-1-1 Started                                                       0.1s
+> docker ps
+CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS                PORTS                                                             NAMES
+526dbb97ed38   codyssey-e1-1-nginx:latest   "/docker-entrypoint.…"   3 seconds ago   Up 3 seconds          0.0.0.0:8090->80/tcp, [::]:8090->80/tcp                           codysseye1-1-codyssey-e1-1-1-1
+254111af041a   qbook-app:local              "python -m questbook…"   6 weeks ago     Up 6 days             8100/tcp                                                          questbook-catalog-sync
+c57dea33b91b   qbook-web:local              "python /app/service…"   6 weeks ago     Up 6 days             0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp                       questbook-web
+f7cfad1aa706   qbook-app:local              "questbook-api"          6 weeks ago     Up 6 days (healthy)   8100/tcp                                                          questbook-app
+f4f9ae406814   postgres:16-alpine           "docker-entrypoint.s…"   6 weeks ago     Up 6 days (healthy)   127.0.0.1:5432->5432/tcp                                          questbook-postgres
+a3bdc50ad02a   ilhyeon-blog:local           "tini -- ./bin/start"    2 months ago    Up 6 days (healthy)                                                                     blog-blog-1
+fc90c5e34d22   caddy:2.11.4-alpine          "caddy run --config …"   2 months ago    Up 6 days (healthy)   127.0.0.1:80->80/tcp, 127.0.0.1:443->443/tcp, 443/udp, 2019/tcp   blog-caddy-1
+1dd9912d1fe1   redis:7-alpine               "docker-entrypoint.s…"   3 months ago    Up 6 days (healthy)   127.0.0.1:6379->6379/tcp
+
+```
+
+#### 이미지
+
+![docker-first](./images/docker-first.png)
+
+#### 약간의 불편한점
+
+Docker Compose의 자동 명명은 보통 [프로젝트 명] - [서비스 명] - [인스턴스 번호] 로 명명됨
+위의 경우 compose가 실행되는 디렉토리의 이름이 "CodysseyE1-1"이므로 "codysseye1-1"으로 프로젝트 명이 자동 설정
+서비스 명은 "docker-compose.yml"에 정의된 "codyssey-e1-1-1"으로 인스턴스 번호는 "1"로 위와 같은 "codysseye1-1-codyssey-e1-1-1-1"이라는 컨테이너 이름이 자동 생성
+
+### 수정된 docker-compose.yml
+
+```docker-compose
+services:
+  nginx:
+    image: codyssey-e1-1-nginx:latest
+    ports: 
+      - "8090:80"
+    volumes:
+      - ./test-nginx/html:/usr/share/nginx/html
+
+```
+
+위에서 서비스 명을 "codyssey-e1-1-1"에서 "nginx"로 변경
+
+### 생성 결과 및 이미지
+
+컨테이너의 이름이 "codysseye1-1-nginx-1"으로 바뀐것을 확인 가능
+
+```zsh
+> docker ps
+CONTAINER ID   IMAGE                        COMMAND                  CREATED          STATUS                PORTS                                                             NAMES
+0addfc595520   codyssey-e1-1-nginx:latest   "/docker-entrypoint.…"   11 seconds ago   Up 10 seconds         0.0.0.0:8090->80/tcp, [::]:8090->80/tcp                           codysseye1-1-nginx-1
+254111af041a   qbook-app:local              "python -m questbook…"   6 weeks ago      Up 6 days             8100/tcp                                                          questbook-catalog-sync
+c57dea33b91b   qbook-web:local              "python /app/service…"   6 weeks ago      Up 6 days             0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp                       questbook-web
+f7cfad1aa706   qbook-app:local              "questbook-api"          6 weeks ago      Up 6 days (healthy)   8100/tcp                                                          questbook-app
+f4f9ae406814   postgres:16-alpine           "docker-entrypoint.s…"   6 weeks ago      Up 6 days (healthy)   127.0.0.1:5432->5432/tcp                                          questbook-postgres
+a3bdc50ad02a   ilhyeon-blog:local           "tini -- ./bin/start"    2 months ago     Up 6 days (healthy)                                                                     blog-blog-1
+fc90c5e34d22   caddy:2.11.4-alpine          "caddy run --config …"   2 months ago     Up 6 days (healthy)   127.0.0.1:80->80/tcp, 127.0.0.1:443->443/tcp, 443/udp, 2019/tcp   blog-caddy-1
+1dd9912d1fe1   redis:7-alpine               "docker-entrypoint.s…"   3 months ago     Up 6 days (healthy)   127.0.0.1:6379->6379/tcp                                          questbook-redis
+
+```
+
+#### 이미지
+
+![docker-second](./images/docker-second.png)

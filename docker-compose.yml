@@ -1,0 +1,8 @@
+services:
+  nginx:
+    image: codyssey-e1-1-nginx:latest
+    ports: 
+      - "8090:80"
+    volumes:
+      - ./test-nginx/html:/usr/share/nginx/html
+
